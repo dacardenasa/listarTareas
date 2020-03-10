@@ -14,15 +14,19 @@
     <div class="col col-sm-6 col-md-4">
       <% if @create %>
         <div class="alert alert-success text-center mt-3" role="alert">
-          !Tarea creada con exito¡
+          <% if !@create %>
+            !Tarea creada con exito¡
+          <% else %>
+            !EL titulo no contiene caracteres, vuelve a intentarlo¡
+          <% end %>
         </div>
       <% elsif @complete %>
         <div class="alert alert-success text-center mt-3" role="alert">
-          !<%= @complete %> con exito¡
+          <%= @complete %>
         </div>
       <% elsif @delete %>
         <div class="alert alert-success text-center mt-3" role="alert">
-          !<%= @delete %> con exito¡
+          <%= @delete %>
         </div>
       <% else %>
         <div class="alert alert-primary text-center mt-3" role="alert">

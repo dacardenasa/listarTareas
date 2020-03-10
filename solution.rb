@@ -1,6 +1,16 @@
 require 'sinatra'
 require 'make_todo'
 
+def consultar(dato)
+  array = Array.new
+  array.push(Tarea.find(dato))
+    if array[0]["status"] == "404"
+      true
+    elsif array[0]["title"].length > 0
+      false
+    end
+end
+
 get '/' do
   @title = "Pagina Principal"
   erb :index, :layout => :layout
@@ -21,26 +31,17 @@ get '/deleteTask' do
   erb :delete, :layout => :layout
 end
 
-get '/queryTask' do
-  @title = "Consultar Tarea"
-  erb :query, :layout => :layout
-end
-
 get '/listTasks' do
   @title = "Listar Tareas"
   @list = Tarea.all
-  @completeTask = []
-  @incompleteTask = []
+  @completeTask = Array.new
+  @incompleteTask = Array.new
   i = 0
-  j = 0
-  k = 0
   while i < @list.length
     if @list[i]["done"] == true
-      @completeTask[j] = @list[i]
-      j = j + 1
+      @completeTask.push(@list[i])
     else
-      @incompleteTask[k] = @list[i]
-      k = k + 1
+      @incompleteTask.push(@list[i])
     end
     i = i + 1
   end
@@ -49,19 +50,35 @@ end
 
 post '/create' do 
   @title = "Pagina Principal"
-  @create = Tarea.create(params[:title]).to_s
+  palabra = params[:title].gsub(/[[:space:]]/, '')
+  if palabra.length == 0
+    @create = true
+  else
+    Tarea.create(palabra).to_s
+    @create = false
+  end
   erb :index, :layout => :layout
 end
 
 post '/complete' do
   @title = "Pagina Principal"
-  @complete = Tarea.update(params[:id]).to_s
+  bandera = consultar(params[:id])
+  if bandera == true
+    @complete = "!El registro no existe en la Base de Datos¡"
+  else
+    @complete = Tarea.update(params[:id]).to_s
+  end
   erb :index, :layout => :layout
 end
 
 post '/delete' do
   @title = "Pagina Principal"
-  @delete = Tarea.destroy(params[:id]).to_s
+  bandera = consultar(params[:id])
+  if bandera == true
+    @delete = "!El registro no existe en la Base de Datos¡"
+  else
+    @delete = Tarea.destroy(params[:id]).to_s
+  end
   erb :index, :layout => :layout
 end
 
