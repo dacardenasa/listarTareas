@@ -1,0 +1,141 @@
+<h1 class="text-center">Listado Tareas</h1>
+<div class="row justify-content-center">
+  <div class="col col-sm-8 col-md-6">
+  <% if @list.length != 0 %>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Codigo</th>
+          <th scope="col">Titulo</th>
+          <th scope="col">Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% header = ["id", "title", "done"] %>
+      <% i = 0 %>
+      <% while i < @list.length %>
+        <tr>
+        <% header.each do | value | %>
+          <td> <%= @list[i][value] %> </td>
+        <% end %>
+        </tr>
+        <% i = i + 1 %>
+      <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <div class="alert alert-danger text-center" role="alert"> ¡No hay tareas registradas el dia de  hoy! </div>
+  <% end %>
+  </div>
+</div>
+
+<div class="row justify-content-center">
+  <div class="col-4 col-sm-6">
+    <div class="text-center">
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        Tareas Completas
+      </button>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Tareas Completadas</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+          
+          <% if @completeTask.length == 0 %>
+            <div class="alert alert-danger" role="alert"> No hay tareas completadas! </div>
+          <% else %>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Codigo</th>
+                  <th scope="col">Titulo</th>
+                  <th scope="col">Estado</th>
+                </tr>
+              </thead>
+              <tbody>
+              <% header = ["id", "title", "done"] %>
+              <% i = 0 %>
+              <% while i < @completeTask.length %>
+                <tr>
+                <% header.each do | value | %>
+                  <td> <%= @completeTask[i][value] %> </td>
+                <% end %>
+                </tr>
+                <% i = i + 1 %>
+                <% end %>
+              </tbody>
+            </table>
+          <% end %>
+
+         </div>
+         <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+         </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col-4 col-sm-6">
+    <div class="text-center">
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal1">
+        Tareas Incompletas
+      </button>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Tareas Incompletas</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+          <% if @incompleteTask.length == 0 %>
+            <div class="alert alert-danger" role="alert"> Todas las tareas estan completadas! </div>
+          <% else %>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Codigo</th>
+                  <th scope="col">Titulo</th>
+                  <th scope="col">Estado</th>
+                </tr>
+              </thead>
+              <tbody>
+              <% header = ["id", "title", "done"] %>
+              <% i = 0 %>
+              <% while i < @incompleteTask.length %>
+                <tr>
+                <% header.each do | value | %>
+                  <td> <%= @incompleteTask[i][value] %> </td>
+                <% end %>
+                </tr>
+                <% i = i + 1 %>
+                <% end %>
+              </tbody>
+            </table>
+          <% end %>
+
+         </div>
+         <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+         </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

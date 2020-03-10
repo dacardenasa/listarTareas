@@ -1,0 +1,31 @@
+<h1 class="text-center">Listado Tareas</h1>
+<div class="row justify-content-center">
+  <div class="col col-sm-8 col-md-6">
+  <% if @list.length != 0 %>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Codigo</th>
+          <th scope="col">Titulo</th>
+          <th scope="col">Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% header = ["id", "title", "done"] %>
+      <% i = 0 %>
+      <% while i < @list.length %>
+        <tr>
+        <% header.each do | value | %>
+          <td> <%= @list[i][value] %> </td>
+        <% end %>
+        </tr>
+        <% i = i + 1 %>
+      <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <div class="alert alert-danger text-center" role="alert"> ¡No hay tareas registradas el dia de  hoy! </div>
+  <% end %>
+  </div>
+</div>
+
